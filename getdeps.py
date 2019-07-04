@@ -83,6 +83,18 @@ class GitUpdater(object):
                     "origin/%s" % self.branch,
                 ]
             )
+            run_cmd(
+                [
+                    "git",
+                    "-C",
+                    project.path,
+                    "submodule",
+                    "update",
+                    "--checkout",
+                    "--force",
+                    "--recursive",
+                ]
+            )
         else:
             self._checkout(project)
 
@@ -92,6 +104,7 @@ class GitUpdater(object):
             [
                 "git",
                 "clone",
+                "--recurse-submodules",
                 "--depth=100",
                 self.origin_repo,
                 project.path,
